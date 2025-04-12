@@ -5,9 +5,10 @@ import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { CreateOptionsSheet } from "../sheets/createOptionsSheet";
 
 
-export const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
+export const TabBar = ({ state, descriptors, navigation, insets }: BottomTabBarProps) => {
+
     return (
-        <XStack justifyContent="space-between" alignItems="center" backgroundColor="$backgroundHover" paddingVertical={10} paddingHorizontal={8} borderTopWidth={1} borderTopColor="$borderColor">
+        <XStack justifyContent="space-between" alignItems="center" backgroundColor="$backgroundHover" paddingTop={10} paddingHorizontal={8} paddingBottom={insets.bottom + 5} borderTopWidth={1} borderTopColor="$borderColor" >
             {state.routes.map((route, index) => {
                 const focused = state.index === index;
                 const color = focused ? "$color" : "$colorHover";
