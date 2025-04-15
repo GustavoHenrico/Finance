@@ -1,28 +1,38 @@
-import { Avatar } from "../../components/avatar";
+import React from "react";
+import { Avatar } from "@/components/avatar"
 import { DollarSign, Eye, EyeOff, PiggyBank } from "@tamagui/lucide-icons";
 import { Button, Card, Text, View, XStack, YStack } from "tamagui"
-import React from "react";
+import dayjs from "dayjs";
+import { useUser } from "@clerk/clerk-expo";
+import { Greeting } from "@/util/greeting";
 
 
 export const HomeScreen = () => {
+    const { user } = useUser();
     const [isVisible, setIsVisible] = React.useState(false);
-
 
     return (
         <View flex={1} paddingTop="$8" paddingHorizontal="$3" backgroundColor="$background" >
             <XStack marginTop="$8" justifyContent="space-between" alignItems="center">
                 <XStack gap="$4" justifyContent="center" alignItems="center">
-                    <Avatar size="$5" radius="$5" />
+                    <Avatar size="$5" radius="$5" image={user?.imageUrl} />
                     <YStack>
-                        <Text color="$color11">Boa noite,</Text>
-                        <Text fontSize="$8" fontWeight="500">Gustavo</Text>
+                        <Text color="$color11">{Greeting()}</Text>
+                        <Text fontSize="$8" fontWeight="500">{user?.firstName}</Text>
                     </YStack>
                 </XStack>
                 <Button size="$4" circular onPress={() => { setIsVisible(!isVisible) }} icon={isVisible ? <EyeOff size={20} /> : <Eye size={20} />} />
             </XStack>
 
 
-            <YStack marginTop="$7" gap="$5" flex={1}>
+            <YStack marginTop="$7" gap="$2" flex={1}>
+
+                <XStack alignItems="center" justifyContent="space-between" >
+                    <Text>{dayjs().format("MMMM")}</Text>
+                    <Text>{dayjs().format("YYYY")}</Text>
+                </XStack>
+
+
                 <Card>
                     <Card.Header>
                         <XStack alignItems="center" justifyContent="space-between">
@@ -39,7 +49,7 @@ export const HomeScreen = () => {
                     </Card.Header>
                 </Card>
 
-                <XStack gridColumn={2} gap="$2" justifyContent="center" alignItems="center">
+                <XStack marginTop="$5" gridColumn={2} gap="$2" justifyContent="center" alignItems="center">
                     <Card width="49%">
                         <Card.Header>
                             <XStack alignItems="center" justifyContent="space-between">
@@ -73,6 +83,6 @@ export const HomeScreen = () => {
                     </Card>
                 </XStack>
             </YStack>
-        </View>
+        </View >
     )
-};
+}

@@ -1,43 +1,29 @@
-import { defaultConfig } from '@tamagui/config/v4';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createTamagui, TamaguiProvider } from 'tamagui';
-import { StatusBar } from 'expo-status-bar';
+import { createTamagui, TamaguiProvider } from "tamagui";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { ClerkProvider } from "@clerk/clerk-expo";
+import { tokenCache } from '@clerk/clerk-expo/token-cache'
+import { defaultConfig } from "@tamagui/config/v4";
+import { RootLatout } from "@/app/root/layout";
+import { AuthLatout } from "@/app/auth/layout";
+import { NavigationContainer } from "@react-navigation/native";
 
-import { RootLayout } from './src/app/root/layout';
-import { AuthLayout } from './src/app/auth/layout';
-import { useState } from 'react';
 
-const Config = createTamagui(defaultConfig);
-const Stack = createNativeStackNavigator();
+const config = createTamagui(defaultConfig)
 
 export const App = () => {
-  const [screenFlow, setScreenFlow] = useState<'onboarding' | 'auth' | 'app'>('app');
+    const stack = createNativeStackNavigator()
 
-  return (
-    <TamaguiProvider config={Config} defaultTheme="dark" disableInjectCSS>
-      <NavigationContainer>
-        <StatusBar style="light" />
+    return (
+        <ClerkProvider tokenCache={tokenCache}>
+            <TamaguiProvider config={config} defaultTheme="dark" disableInjectCSS>
+                <NavigationContainer>
+                    <stack.Navigator initialRouteName="Root" screenOptions={{ headerShown: false }}>
+                        <stack.Screen name="Root" component={RootLatout} />
+                        <stack.Screen name="Auth" component={AuthLatout} />
+                    </stack.Navigator>
+                </NavigationContainer>
+            </TamaguiProvider>
+        </ClerkProvider>
+    )
+}
 
-        {screenFlow === 'app' && (
-          <Stack.Navigator initialRouteName="App" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="App" component={RootLayout} />
-          </Stack.Navigator>
-        )}
-
-        {screenFlow === 'auth' && (
-          <Stack.Navigator initialRouteName="Auth" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Auth" component={AuthLayout} />
-          </Stack.Navigator>
-        )}
-
-        {screenFlow === 'onboarding' && (
-          <Stack.Navigator initialRouteName="Onboarding" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Onboarding" component={RootLayout} />
-          </Stack.Navigator>
-        )}
-
-      </NavigationContainer>
-    </TamaguiProvider>
-  )
-};

@@ -1,22 +1,40 @@
-import { BadgeDollarSign, Bot, ChevronRight, FileDown, FolderKanban, LogOut, ShieldCheck, Target, User, Settings } from "@tamagui/lucide-icons";
-import { Button, ListItem, ScrollView, Text, View, XStack, YStack } from "tamagui"
-import { Avatar } from "../../components/avatar";
+import React from "react"
+import { Avatar } from "@/components/avatar"
+import { useAuth, useUser } from "@clerk/clerk-expo"
+import { useNavigation } from "@react-navigation/native"
+import { BadgeDollarSign, Bot, ChevronRight, FileDown, FolderKanban, LogOut, ShieldCheck, Target, User, Settings } from "@tamagui/lucide-icons"
+import { Button, ListItem, ScrollView, Spinner, Text, View, XStack, YStack } from "tamagui"
 
 
-export const SettingScreen = () => {
+export const SettingsScreen = () => {
+    const [isSignOut, setIsSignOut] = React.useState(false);
+    const { user } = useUser();
+    const { signOut } = useAuth();
+    const navigation = useNavigation();
+
+
+    const handleSignOut = async () => {
+        setIsSignOut(true);
+        await signOut();
+        navigation.navigate("Auth" as never);
+        setIsSignOut(false);
+    }
 
     return (
         <View flex={1} paddingTop="$8" paddingHorizontal="$3" backgroundColor="$background" >
 
             <XStack marginTop="$8" justifyContent="space-between" alignItems="center">
                 <XStack gap="$4" justifyContent="center" alignItems="center">
-                    <Avatar size="$5" radius="$5" />
+                    <Avatar size="$5" radius="$5" image={user?.imageUrl} />
                     <YStack>
-                        <Text fontSize="$8" fontWeight="500">Gustavo Henrico</Text>
-                        <Text color="$color11">gustavohenrico58@gmail.com</Text>
+                        <Text fontSize="$8" fontWeight="500">{user?.fullName}</Text>
+                        <Text color="$color11">{user?.emailAddresses[0].emailAddress}</Text>
                     </YStack>
                 </XStack>
-                <Button size="$4" circular color="$red11" icon={<LogOut size={20} />} onPress={() => { }} />
+                <Button size="$4" circular color="$red11" onPress={handleSignOut} >
+                    {!isSignOut && <LogOut color="$red11" size={20} />}
+                    {isSignOut && <Spinner color="$red11" />}
+                </Button>
             </XStack>
 
             <ScrollView marginTop="$5" verticalAlign="top" showsVerticalScrollIndicator={false}>
@@ -97,4 +115,4 @@ export const SettingScreen = () => {
             </ScrollView>
         </View>
     )
-};
+}

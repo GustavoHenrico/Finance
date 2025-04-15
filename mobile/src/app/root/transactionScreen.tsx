@@ -1,7 +1,8 @@
-import { ChevronLeft, ChevronRight, TrendingDown, TrendingUp } from "@tamagui/lucide-icons";
-import { Button, ListItem, ScrollView, Text, View, XStack, YStack } from "tamagui"
-import dayjs from "dayjs";
 import React from "react";
+import { MonthSelector } from "@/components/monthSelector";
+import { TrendingDown, TrendingUp } from "@tamagui/lucide-icons";
+import { ListItem, ScrollView, Text, View, XStack, YStack } from "tamagui";
+import dayjs from "dayjs";
 
 const data = [
     {
@@ -28,30 +29,9 @@ const data = [
 ];
 
 
+
 export const TransactionScreen = () => {
     const [month, setMonth] = React.useState(dayjs().month());
-    const [scrollWidth, setScrollWidth] = React.useState(0);
-
-    const months = [
-        "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
-        "Jul", "Ago", "Set", "Out", "Nov", "Dez"
-    ];
-
-    const scrollRef = React.useRef<any>(null);
-    const buttonRefs = React.useRef<any[]>([]);
-
-    React.useEffect(() => {
-        if (buttonRefs.current[month] && scrollRef.current && scrollWidth) {
-            buttonRefs.current[month].measureLayout(
-                scrollRef.current,
-                (x: number, y: number, width: number) => {
-                    const offset = x + width / 2 - scrollWidth / 2;
-                    scrollRef.current.scrollTo({ x: offset, animated: true });
-                },
-                () => { }
-            );
-        }
-    }, [month, scrollWidth]);
 
     return (
         <View flex={1} paddingTop="$8" paddingHorizontal="$3" backgroundColor="$background" >
@@ -59,31 +39,7 @@ export const TransactionScreen = () => {
                 <Text fontSize="$8" fontWeight="500">Fluxo de Caixa</Text>
             </XStack>
 
-            <XStack marginTop="$4" justifyContent="space-between" alignItems="center" gap="$2">
-                <Button size="$4" circular backgroundColor="$backgroundHover" icon={<ChevronLeft size={24} />} onPress={() => { month > 0 && setMonth(month - 1) }} />
-                <ScrollView
-                    ref={scrollRef}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    borderRadius="$4"
-                    onLayout={(e) => { setScrollWidth(e.nativeEvent.layout.width) }}>
-                    {months.map((item, index) => (
-                        <Button
-                            key={index}
-                            ref={(ref) => (buttonRefs.current[index] = ref)}
-                            size="$5"
-                            paddingVertical="$2"
-                            paddingHorizontal="$4"
-                            borderRadius="$0"
-                            backgroundColor={month === index ? "$backgroundPress" : "$backgroundHover"}
-                            onPress={() => setMonth(index)}>
-                            <Text fontSize="$4" fontWeight="500">{item}</Text>
-                        </Button>
-                    ))}
-                </ScrollView>
-                <Button size="$4" circular backgroundColor="$backgroundHover" icon={<ChevronRight size={24} />} onPress={() => { month < 11 && setMonth(month + 1) }} />
-            </XStack>
-
+            <MonthSelector month={month} setMonth={setMonth} />
 
             <ScrollView marginTop="$5" verticalAlign="top" showsVerticalScrollIndicator={false}>
                 <YStack gap="$2">

@@ -1,8 +1,7 @@
 import React from "react";
 import { Button, XStack } from "tamagui";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-
-import { CreateOptionsSheet } from "../sheets/createOptionsSheet";
+import { CreateOptionsSheet } from "@/sheets/createOptionsSheet";
 
 
 export const TabBar = ({ state, descriptors, navigation, insets }: BottomTabBarProps) => {

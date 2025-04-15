@@ -1,5 +1,6 @@
 import { ChevronRight, CreditCard } from "@tamagui/lucide-icons";
-import { ListItem, ScrollView, Text, View, XStack, YStack } from "tamagui"
+import { ListItem, ScrollView, Text, View, XStack, YStack } from "tamagui";
+
 
 export const CardScreen = () => {
 
