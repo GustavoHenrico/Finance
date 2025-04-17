@@ -9,14 +9,12 @@
         ".env": true,
         "node_modules": true,
         ".expo": true,
-        ".vscode": true,
-        "package.json": true
+        ".vscode": true
     },
     "hide-files.files": [
         ".env",
         "node_modules",
         ".expo",
-        ".vscode",
-        "package.json"
+        ".vscode"
     ]
 }

@@ -1,5 +1,5 @@
 {
-  "extends": "expo/tsconfig.base",
+  "extends": "expo/tsconfig.base",  
   "compilerOptions": {
     "strict": true,
     "paths": {
@@ -7,7 +7,7 @@
         "./src/*"
       ],
       "@assets/*": [
-        "./assets/*"
+        "./assets/*",       
       ],
       "@components/*": [
         "./src/components/*"
@@ -18,6 +18,7 @@
       "@util/*": [
         "./src/util/*"
       ],
+      
     }
   }
 }

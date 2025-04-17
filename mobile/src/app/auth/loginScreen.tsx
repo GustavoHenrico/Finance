@@ -2,8 +2,9 @@ import React from "react";
 import { useSSO } from "@clerk/clerk-expo";
 import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
-import { Button, Spinner, Text, View, YStack } from "tamagui";
+import { Button, Spinner, Text, View, YStack, Image } from "tamagui";
 import { useNavigation } from "@react-navigation/native";
+
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -45,9 +46,18 @@ export const LoginScreen = () => {
         }
     };
 
+ 
+
     return (
-        <View flex={1} paddingTop="$8" paddingHorizontal="$3" backgroundColor="$background">
-            <View flex={1}></View>
+        <View flex={1} paddingTop="$8" paddingHorizontal="$3" backgroundColor="$background">            
+            <View flex={1} justifyContent="center" alignItems="center" >
+
+            <Image 
+            source={require("../../assets/logo.png")} 
+                           
+            />
+
+            </View>
             <YStack backgroundColor="$backgroundHover" gap="$3" padding="$4" borderTopLeftRadius="$4" borderTopRightRadius="$4" elevation="$2">
                 <Text textAlign="center" fontSize="$8" fontWeight="500">Bem vindo!</Text>
                 <Text textAlign="center" color="$color11">Entre com sua conta para continuar</Text>
@@ -63,3 +73,4 @@ export const LoginScreen = () => {
         </View>
     )
 };
+
