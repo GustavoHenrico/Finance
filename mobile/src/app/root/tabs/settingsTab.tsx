@@ -6,7 +6,7 @@ import { BadgeDollarSign, Bot, ChevronRight, FileDown, FolderKanban, LogOut, Shi
 import { Button, ListItem, ScrollView, Spinner, Text, View, XStack, YStack } from "tamagui"
 
 
-export const SettingsScreen = () => {
+export const SettingsTab = () => {
     const [isSignOut, setIsSignOut] = React.useState(false);
     const { user } = useUser();
     const { signOut } = useAuth();

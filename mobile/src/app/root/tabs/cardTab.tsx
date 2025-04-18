@@ -2,7 +2,7 @@ import { ChevronRight, CreditCard } from "@tamagui/lucide-icons";
 import { ListItem, ScrollView, Text, View, XStack, YStack } from "tamagui";
 
 
-export const CardScreen = () => {
+export const CardTab = () => {
 
     return (
         <View flex={1} paddingTop="$8" paddingHorizontal="$3" backgroundColor="$background" >

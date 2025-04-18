@@ -30,7 +30,7 @@ const data = [
 
 
 
-export const TransactionScreen = () => {
+export const TransactionTab = () => {
     const [month, setMonth] = React.useState(dayjs().month());
 
     return (

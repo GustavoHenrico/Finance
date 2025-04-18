@@ -7,7 +7,7 @@ import { useUser } from "@clerk/clerk-expo";
 import { Greeting } from "@/util/greeting";
 
 
-export const HomeScreen = () => {
+export const HomeTab = () => {
     const { user } = useUser();
     const [isVisible, setIsVisible] = React.useState(false);
 
